@@ -25,3 +25,13 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+Firebase Deployment:
+- in CMD, navigate to root folder
+- enter "git run build" to create a build of the project
+- enter "firebase deploy" to deploy the build of the project to Firebase
+- URL will be provided (https://csc301a2-fc4e2.web.app/)
+
+
+Git repo: https://github.com/joshuaanastasakis/CSC301A2
