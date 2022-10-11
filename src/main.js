@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 
+import Cart from './components/Cart'
+import Checkout from './components/Checkout'
+import Promotions from './components/Promotions'
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDjr_Ja1ZpMnH_qTLOms0X2ON_ttQTB140",
@@ -24,6 +28,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: { App, Cart, Checkout, Promotions },
   template: '<App/>'
 })

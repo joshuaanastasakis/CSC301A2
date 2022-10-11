@@ -35,3 +35,7 @@ Firebase Deployment:
 
 
 Git repo: https://github.com/joshuaanastasakis/CSC301A2
+
+Assignment Details: https://docs.google.com/document/d/1czvv05AWt_7mVwFn-ovsoZrGa2qA84WcmylV1SDl5p4/edit
+
+Firebase project: https://console.firebase.google.com/project/csc301a2-fc4e2/overview
