@@ -4,19 +4,19 @@
       <h2 class="header">{{title}}</h2>
       <div class="subtotal-row">
         <h3>Cart</h3>
-        <p>${{cartSubtotal || 0}}</p>
+        <p>${{cartSubtotal.toFixed(2) || 0}}</p>
       </div>
       <div class="subtotal-row">
         <h3>Promos</h3>
-        <p>-${{promoSubtotal || 0}}</p>
+        <p>-${{promoSubtotal.toFixed(2) || 0}}</p>
       </div>
       <div class="subtotal-row">
         <h3>Delivery</h3>
-        <p>${{deliverySubtotal || 0}}</p>
+        <p>${{deliverySubtotal.toFixed(2) || 0}}</p>
       </div>
       <div class="subtotal-row">
         <h3>Tax</h3>
-        <p>${{taxSubtotal || 0}}</p>
+        <p>${{taxSubtotal.toFixed(2) || 0}}</p>
       </div>
     </div>
   </div>
@@ -51,6 +51,9 @@ export default {
       let index = this.promotions.indexOf(promo);
       this.promotions[index].valid=validatePromoCode(promo.text);
     }
+  },
+  created: function() {
+    console.log(this.cartSubtotal);
   }
 }
 </script>

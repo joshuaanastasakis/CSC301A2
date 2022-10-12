@@ -37,9 +37,10 @@ export default {
   data () {
     return {
       title: "Checkout Price Calculator",
-      items: [{id: 1, name: "Coffee Filters", quantity: 3, price: 5},
-              {id: 2, name: "Coffee Machine", quantity: 1, price: 100},
-              {id: 3, name: "Maricchino Cherries", quantity: 1, price: 100},
+      items: [
+        {id: 1, name: "Coffee Filters", quantity: 3, price: 5},
+        {id: 2, name: "Coffee Machine", quantity: 1, price: 100},
+        {id: 3, name: "Maricchino Cherries", quantity: 1, price: 100},
       ],
       newItemName: "",
       newItemQuantity: null,
@@ -53,29 +54,24 @@ export default {
       this.newItemName="";
       this.newItemQuantity=null;
       this.newItemPrice=null;
+
+      this.updateSubtotal();
     },
     deleteItem(id) {
       console.log("deleting item "+this.items.filter(item => item.id === id)[0].name)
       this.items = this.items.filter(item => item.id !==id);
-      // this.updateSubtotal();
+      this.updateSubtotal();
       console.log("deleted item "+id);
     },
     getLatestItemId() {
       return this.items.map(item => item.id).sort()[this.items.length-1]+1 || 1;
     },
-    handleItemChange(item) {
-      console.log(promo.text);
-      let index = this.promotions.indexOf(promo);
-      this.promotions[index].valid=this.validatePromoCode(promo.text);
-      // this.updateSubtotal(); // if (this.promotions[index].valid) this.updateSubtotal();
-    },
     updateSubtotal() {
-      this.$emit('subtotal', this.promotions.filter(p => p.valid).reduce((prev, next) => prev + next.value, 0));
-    },
-    validatePromoCode(code) {
-      const sameCount = this.promotions.filter(p => p.text===code).length;
-      console.log(sameCount);
-      return (sameCount===1 && code.length===10) || false;
+      const cartSubtotal = this.items.reduce((prev, next) => prev + (next.price*next.quantity), 0);
+      console.log(cartSubtotal);
+      console.log(this.items.length);
+      this.$emit('cartSubtotal', {cartSubtotal, cartQuantity: this.items.length});
+      console.log(this.items.reduce((prev, next) => prev + (next.price*next.quantity), 0));
     },
     handleDecreaseQuantity(id) {
       console.log(id);
@@ -84,6 +80,7 @@ export default {
       const currQuantity = this.items[index].quantity;
       if (currQuantity===1) this.deleteItem(this.items[index].id);
       else this.items[index].quantity -= 1;
+      this.updateSubtotal();
     },
     handleIncreaseQuantity(id) {
       console.log(id);
@@ -91,7 +88,11 @@ export default {
       let index = this.items.indexOf(item);
       const currQuantity = this.items[index].quantity;
       this.items[index].quantity += 1;
+      this.updateSubtotal();
     }
+  },
+  created: function() {
+    this.updateSubtotal();
   }
 }
 </script>

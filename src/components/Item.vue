@@ -39,13 +39,17 @@ export default {
       this.updateSubtotal(); // if (this.promotions[index].valid) this.updateSubtotal();
     },
     updateSubtotal() {
-      this.$emit('subtotal', this.promotions.filter(p => p.valid).reduce((prev, next) => prev + next.value, 0));
+      console.log("emitting subtotal");
+      this.$emit('itemSubtotal', this.promotions.filter(p => p.valid).reduce((prev, next) => prev + next.value, 0));
     },
     validatePromoCode(code) {
       const sameCount = this.promotions.filter(p => p.text===code).length;
       console.log(sameCount);
       return (sameCount===1 && code.length===10) || false;
     },
+  },
+  created: function() {
+    this.updateSubtotal();
   }
 }
 </script>

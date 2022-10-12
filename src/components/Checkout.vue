@@ -4,14 +4,14 @@
       <h1>Checkout</h1>
       <Promotions @subtotal="handlePromoUpdate"/>
       <Subtotal :cartSubtotal="cartSubtotal"
-                :promoSubtotal="promoSubtotal"
-                :deliverySubtotal="deliverySubtotal"
-                :taxSubtotal="taxSubtotal"
+                :promoSubtotal="promo"
+                :deliverySubtotal="cartQuantity * 30"
+                :taxSubtotal="cartSubtotal * 1.13"
                 />
       <div class="total">
         <div class="totalRow">
           <h2>Total</h2>
-          <p>${{total}}</p>
+          <p>${{this.getTotal().toFixed(2)}}</p>
         </div>
         <button @click="handleCheckout()" class="totalButton">Checkout</button>
       </div>
@@ -26,44 +26,81 @@ import Subtotal from './Subtotal.vue';
 export default {
   name: 'Checkout',
   components: {Promotions, Subtotal},
-  props: {cartValue: Number, cartQuantity: Number},
+  props: {cartSubtotal: Number, cartQuantity: Number},
   data () {
     return {
       title: "Checkout Price Calculator",
-      cartSubtotal: 0,
-      promoSubtotal: 0,
-      deliverySubtotal: 0,
-      taxSubtotal: 0,
+      cart: this.cartSubtotal,
+      promo: 0,
+      delivery: this.cartQuantity * 30 || 0,
+      tax: this.cartSubtotal * 1.13 || 0,
       total: 0,
     }
   },
   methods: {
+    getCart() {
+      return this.cartSubtotal;
+    },
+    getDelivery() {
+      return this.cartQuantity*30;
+    },
+    getTax() {
+      return this.cartSubtotal * 1.13;
+    },
     handleCartUpdate(value) {
       console.log(value);
-      this.cartSubtotal=value || 0;
+      this.cart=value || 0;
       this.updateTotal();
     },
     handlePromoUpdate(value) {
       console.log(value);
-      this.promoSubtotal=value || 0;
+      this.promo=value || 0;
       this.updateTotal();
     },
     handleDeliveryUpdate(value) {
       console.log(value);
-      this.deliverySubtotal=value || 0;
+      this.delivery=value || 0;
       this.updateTotal();
     },
     handleTaxUpdate(value) {
       console.log(value);
-      this.taxSubtotal=value || 0;
+      this.tax=value || 0;
       this.updateTotal();
     },
     handleCheckout() {
       console.log("checking out, total is "+this.total);
     },
     updateTotal() {
-      this.total = Math.max(this.cartSubtotal+this.deliverySubtotal+this.taxSubtotal - this.promoSubtotal, 0);
+      // this.total = Math.max(this.cartSubtotal+this.delivery+this.tax - this.promo, 0);
+      this.total = Math.max(this.getCart()+this.getDelivery()+this.getTax() - this.promo, 0);
+    },
+    getTotal() {
+      this.updateTotal();
+      return this.total;
     }
+  },
+  created: function() {
+    this.updateTotal();
+  },
+  watch: {
+    cartSubtotal: function() {
+      if (this.cartSubtotal) {
+        console.log("in Checkout, cart subtotal updated");
+        this.updateTotal();
+      }
+    },
+    promo: function() {
+      if (this.promo) {
+        console.log("in Checkout, promo subtotal updated");
+        this.updateTotal();
+      }
+    },
+    cartQuantity: function() {
+      if (this.cartQuantity) {
+        console.log("in Checkout, cart quantity updated");
+        this.updateTotal();
+      }
+    },
   }
 }
 </script>

@@ -28,9 +28,10 @@
         this.items = this.items.filter(item => item.id!==id);
       },
       handleCartSubtotal(value) {
+        console.log(value);
         this.cartSubtotal = value.cartSubtotal || 0;
         this.cartQuantity = value.cartQuantity || 0;
-        console.log(`${this.cartValue}, ${this.cartQuantity}`);
+        console.log(`${this.cartSubtotal}, ${this.cartQuantity}`);
       }
     }
   }

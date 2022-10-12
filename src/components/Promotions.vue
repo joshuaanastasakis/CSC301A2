@@ -56,6 +56,9 @@ export default {
       console.log(sameCount);
       return (sameCount===1 && code.length===10) || false;
     },
+  },
+  created: function() {
+    this.updateSubtotal();
   }
 }
 </script>
