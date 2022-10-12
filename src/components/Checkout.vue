@@ -8,6 +8,13 @@
                 :deliverySubtotal="deliverySubtotal"
                 :taxSubtotal="taxSubtotal"
                 />
+      <div class="total">
+        <div class="totalRow">
+          <h2>Total</h2>
+          <p>${{total}}</p>
+        </div>
+        <button @click="handleCheckout()" class="totalButton">Checkout</button>
+      </div>
     </div>
   </div>
 </template>
@@ -26,25 +33,35 @@ export default {
       promoSubtotal: 0,
       deliverySubtotal: 0,
       taxSubtotal: 0,
-      total: this.handlePromoUpdate(),
+      total: 0,
     }
   },
   methods: {
     handleCartUpdate(value) {
       console.log(value);
       this.cartSubtotal=value || 0;
+      this.updateTotal();
     },
     handlePromoUpdate(value) {
       console.log(value);
       this.promoSubtotal=value || 0;
+      this.updateTotal();
     },
     handleDeliveryUpdate(value) {
       console.log(value);
       this.deliverySubtotal=value || 0;
+      this.updateTotal();
     },
     handleTaxUpdate(value) {
       console.log(value);
       this.taxSubtotal=value || 0;
+      this.updateTotal();
+    },
+    handleCheckout() {
+      console.log("checking out, total is "+this.total);
+    },
+    updateTotal() {
+      this.total = Math.max(this.cartSubtotal+this.deliverySubtotal+this.taxSubtotal - this.promoSubtotal, 0);
     }
   }
 }
@@ -84,6 +101,29 @@ export default {
   .container {
     border-left: 1px solid black;
   }
+}
+
+.total {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+}
+
+.totalRow {
+  display: flex;
+  flex-direction: row;
+  margin-left: 8px;
+  justify-content: space-between;
+}
+
+.totalButton {
+  margin-left: 8px;
+  background: #4EBA3C;
+  height: 35px;
+}
+
+.totalButton:hover {
+  cursor: pointer;
 }
 
 </style>

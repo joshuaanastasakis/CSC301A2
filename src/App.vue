@@ -77,4 +77,13 @@ h3 {
   font-size: 15px;
   line-height: 18px;
 }
+
+p {
+  color: #3C3C3C;
+  /* font-family: 'Inter'; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+}
 </style>
