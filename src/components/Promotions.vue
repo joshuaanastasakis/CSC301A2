@@ -21,9 +21,6 @@
 </template>
 
 <script>
-  function validatePromoCode(code) {
-    return code.length===10 || false;
-  }
 export default {
   name: 'Promotions',
   data () {
@@ -35,10 +32,11 @@ export default {
   methods: {
     addPromotion(id) {
       if (this.promotions.filter(p => !p.valid).length>0 || this.promotions.length===5) return;
-      this.promotions.push({text: "", id});
+      this.promotions.push({text: "", id, value: 10});
     },
     deletePromotion(id) {
       this.promotions = this.promotions.filter(promo => promo.id !==id);
+      this.updateSubtotal();
       console.log("deleted item "+id);
     },
     getLatestPromoId() {
@@ -47,8 +45,17 @@ export default {
     handlePromoChange(promo) {
       console.log(promo.text);
       let index = this.promotions.indexOf(promo);
-      this.promotions[index].valid=validatePromoCode(promo.text);
-    }
+      this.promotions[index].valid=this.validatePromoCode(promo.text);
+      this.updateSubtotal(); // if (this.promotions[index].valid) this.updateSubtotal();
+    },
+    updateSubtotal() {
+      this.$emit('subtotal', this.promotions.filter(p => p.valid).reduce((prev, next) => prev + next.value, 0));
+    },
+    validatePromoCode(code) {
+      const sameCount = this.promotions.filter(p => p.text===code).length;
+      console.log(sameCount);
+      return (sameCount===1 && code.length===10) || false;
+    },
   }
 }
 </script>
@@ -122,7 +129,7 @@ input {
 .deleteRow {
   color: red;
   font-size: 30px;
-  
+  margin-right: 8px;
 }
 
 .deleteRow:hover {

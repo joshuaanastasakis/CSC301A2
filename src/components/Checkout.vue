@@ -2,28 +2,49 @@
   <div class="checkout">
     <div class="container">
       <h1>Checkout</h1>
-      <Promotions />
-      <div class="container-subtotal">
-        <h2>Subtotal</h2>
-        <div class="cart-subtotal">
-          <h3>Cart</h3>
-          <p>{{cartSubtotal}}</p>
-        </div>
-      </div>
+      <Promotions @subtotal="handlePromoUpdate"/>
+      <Subtotal :cartSubtotal="cartSubtotal"
+                :promoSubtotal="promoSubtotal"
+                :deliverySubtotal="deliverySubtotal"
+                :taxSubtotal="taxSubtotal"
+                />
     </div>
   </div>
 </template>
 
 <script>
 import Promotions from './Promotions.vue';
+import Subtotal from './Subtotal.vue';
 
 export default {
   name: 'Checkout',
-  components: {Promotions},
+  components: {Promotions, Subtotal},
   data () {
     return {
       title: "Checkout Price Calculator",
-      cartSubtotal: 0
+      cartSubtotal: 0,
+      promoSubtotal: 0,
+      deliverySubtotal: 0,
+      taxSubtotal: 0,
+      total: this.handlePromoUpdate(),
+    }
+  },
+  methods: {
+    handleCartUpdate(value) {
+      console.log(value);
+      this.cartSubtotal=value || 0;
+    },
+    handlePromoUpdate(value) {
+      console.log(value);
+      this.promoSubtotal=value || 0;
+    },
+    handleDeliveryUpdate(value) {
+      console.log(value);
+      this.deliverySubtotal=value || 0;
+    },
+    handleTaxUpdate(value) {
+      console.log(value);
+      this.taxSubtotal=value || 0;
     }
   }
 }
