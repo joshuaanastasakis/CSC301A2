@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="container">
-      <Cart />
-      <Checkout />
+      <Cart @cartSubtotal="handleCartSubtotal" />
+      <Checkout :cartSubtotal="cartSubtotal" :cartQuantity="cartQuantity"/>
     </div>
   </div>
 </template>
@@ -15,7 +15,9 @@
     components: {Cart, Checkout},
     data() {
       return {
-        items: []
+        items: [],
+        cartSubtotal: 0,
+        cartQuantity: 0,
       }
     },
     methods: {
@@ -24,6 +26,11 @@
       },
       deleteItem(id) {
         this.items = this.items.filter(item => item.id!==id);
+      },
+      handleCartSubtotal(value) {
+        this.cartSubtotal = value.cartSubtotal || 0;
+        this.cartQuantity = value.cartQuantity || 0;
+        console.log(`${this.cartValue}, ${this.cartQuantity}`);
       }
     }
   }
@@ -36,8 +43,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: auto;
+  /* margin-right: auto; */
+  /* margin-left: auto; */
   max-width: 1000px;
 }
 

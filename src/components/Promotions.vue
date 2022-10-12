@@ -63,7 +63,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .promotions {
-  width: 100%;
+  width: calc(100% - 8px);
   margin-left: 8px;
 }
 .container {

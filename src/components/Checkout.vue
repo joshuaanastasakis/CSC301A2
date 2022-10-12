@@ -26,6 +26,7 @@ import Subtotal from './Subtotal.vue';
 export default {
   name: 'Checkout',
   components: {Promotions, Subtotal},
+  props: {cartValue: Number, cartQuantity: Number},
   data () {
     return {
       title: "Checkout Price Calculator",
@@ -117,7 +118,8 @@ export default {
 }
 
 .totalButton {
-  margin-left: 8px;
+  margin-inline: 8px;
+  /* width: calc(100% - 8px); */
   background: #4EBA3C;
   height: 35px;
 }
