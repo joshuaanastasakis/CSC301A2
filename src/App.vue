@@ -68,4 +68,13 @@ h2 {
   font-size: 20px;
   line-height: 18px;
 }
+
+h3 {
+  color: #3C3C3C;
+  /* font-family: 'Inter'; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
+}
 </style>

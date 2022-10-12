@@ -22,7 +22,7 @@ export default {
 <style scoped>
 
 .cart {
-  width: 50%;
+  width: 70%;
   min-width: 300px;
   max-width: 400px;
   /* border-right: 1px solid black; */

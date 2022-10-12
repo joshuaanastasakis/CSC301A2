@@ -21,6 +21,9 @@
 </template>
 
 <script>
+  function validatePromoCode(code) {
+    return code.length===10 || false;
+  }
 export default {
   name: 'Promotions',
   data () {
@@ -44,7 +47,7 @@ export default {
     handlePromoChange(promo) {
       console.log(promo.text);
       let index = this.promotions.indexOf(promo);
-      this.promotions[index].valid=promo.text.length===10 || false;
+      this.promotions[index].valid=validatePromoCode(promo.text);
     }
   }
 }
@@ -60,6 +63,8 @@ export default {
   display: flex;
   justify-content: left;
   flex-direction: column;
+  border-bottom: 2px solid grey;
+  padding-bottom: 8px;
 }
 
 .header {
@@ -95,6 +100,7 @@ input {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  
 }
 
 .promo-row > p {
@@ -109,7 +115,7 @@ input {
 
 .promo-row > input {
   margin: auto;
-  width: 180px;
+  width: 160px;
   height: 20px;
 }
 
